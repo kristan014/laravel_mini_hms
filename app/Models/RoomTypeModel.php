@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class RoomTypeModel extends Model
 {
     use HasFactory;
+
+    public function posts()
+    {
+        return $this->hasMany(RoomModel::class);
+    }
 }
