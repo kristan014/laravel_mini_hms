@@ -31,6 +31,11 @@ Route::post('/logout',[LogoutController::class, 'store'])->name('logout');
 Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/hotel',[HotelController::class, 'index'])->name('hotel');
+Route::post('/hotel',[HotelController::class, 'store'])->name('hotel.store');
+
+
+// Route::get('/api/v1/hotels',[HotelController::class, 'datatable'])->name('api.hotels.index');
+
 
 
 Route::get('/room',[RoomController::class, 'index'])->name('room');

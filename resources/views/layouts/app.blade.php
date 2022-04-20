@@ -29,6 +29,15 @@
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
+    {{-- custom js --}}
+    <script src="{{ asset('dist/js/common.js') }}"></script>
+
+    {{-- jquery validation --}}
+    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
+
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
@@ -40,6 +49,10 @@
 
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}" />
 
 </head>
 
@@ -266,11 +279,15 @@
     <script>
         // $.widget.bridge('uibutton', $.ui.button)
     </script>
+
+    <!-- Toastr -->
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- DataTables  & Plugins -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    {{-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> --}}
     {{-- <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> --}}
 
@@ -299,7 +316,7 @@
 
 
 
-  
+
 </body>
 
 </html>
