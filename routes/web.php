@@ -30,12 +30,12 @@ Route::post('/logout',[LogoutController::class, 'store'])->name('logout');
 
 Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/hotel',[HotelController::class, 'index'])->name('hotel.index');
-Route::get('/datatable-hotel',[HotelController::class, 'datatable'])->name('hotel.datatable');
-Route::get('/hotel/{id}',[HotelController::class, 'getone'])->name('hotel.getone');
-Route::post('/add-hotel',[HotelController::class, 'store'])->name('hotel.store');
-Route::post('/update-hotel/{id}',[HotelController::class, 'update'])->name('hotel.update');
-Route::post('/delete-hotel/{id}',[HotelController::class, 'destroy'])->name('hotel.delete');
+Route::get('/hotels',[HotelController::class, 'index'])->name('hotels.index');
+Route::get('/datatable-hotels',[HotelController::class, 'datatable'])->name('hotels.datatable');
+Route::get('/hotels/{id}',[HotelController::class, 'getone'])->name('hotels.getone');
+Route::post('/add-hotels',[HotelController::class, 'store'])->name('hotels.store');
+Route::post('/update-hotels/{id}',[HotelController::class, 'update'])->name('hotels.update');
+Route::post('/delete-hotels/{id}',[HotelController::class, 'destroy'])->name('hotels.delete');
 
 // Route::get('/api/v1/hotels',[HotelController::class, 'datatable'])->name('api.hotels.index');
 

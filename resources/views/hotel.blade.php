@@ -34,7 +34,7 @@
             <!-- form -->
             <div class="row" id="div_form">
                 <div class="col-xl-12">
-                    {{-- action="{{ route('hotel.store') }}" method="post" --}}
+                    {{-- action="{{ route('hotels.store') }}" method="post" --}}
                     <form class="card card-primary card-outline" id="form_id" name="form_id">
                         @csrf
                         <div class="card-header">
@@ -291,7 +291,7 @@
 
                             // add record
                             $.ajax({
-                                url: "{{ route('hotel.store') }}",
+                                url: "{{ route('hotels.store') }}",
                                 type: "POST",
                                 data: form_data,
                                 contentType: false,
@@ -321,7 +321,7 @@
                             });
                         } else {
                             // update record
-                            let url = '{{ route('hotel.update', ':id') }}';
+                            let url = '{{ route('hotels.update', ':id') }}';
                             url = url.replace(':id', $("#hidden_id").val());
                             form_data.append("_token", "{{ csrf_token() }}");
                             $.ajax({
@@ -363,7 +363,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('hotel.datatable') }}",
+                url: "{{ route('hotels.datatable') }}",
             },
             columns: [
 
@@ -391,7 +391,7 @@
 
         // function to show details for viewing/updating
         editData = (id, type) => {
-            let url = '{{ route('hotel.getone', ':id') }}';
+            let url = '{{ route('hotels.getone', ':id') }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
@@ -443,7 +443,7 @@
             }).then(function(t) {
                 // if user clickes yes, delete it.
                 if (t.value) {
-                    let url = '{{ route('hotel.delete', ':id') }}';
+                    let url = '{{ route('hotels.delete', ':id') }}';
                     url = url.replace(':id', id);
                     $.ajax({
                         url: url,
