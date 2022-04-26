@@ -17,27 +17,53 @@ class HotelController extends Controller
     }
 
 
-    public function index(Request $request)
+    public function index()
     {
-        // if ($request->ajax()) {
-        // return datatables()->of($customers)
-        //     ->addColumn('action', function ($row) {
-        //         $html = '<a href="#" class="btn btn-xs btn-secondary btn-edit">Edit</a> ';
-        //         $html .= '<button data-rowid="' . $row->id . '" class="btn btn-xs btn-danger btn-delete">Del</button>';
-        //         return $html;
-        //     })->toJson();
-        // }
-        $hotels = Hotel::all();
-        return view('hotel', compact('hotels'));
+        if (request()->ajax()) {
+            return datatables()->of(Hotel::latest()->get())
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-primary btn-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm">Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        // $hotels = Hotel::all();
+        // return view('hotel', compact('hotels'));
 
-        // return view('hotel');
+        return view('hotel');
     }
 
     public function datatable()
     {
-        $query = Hotel::select('region', 'contact_no', 'manager');
-        return datatables($query)->make(true);
+        if (request()->ajax()) {
+            return datatables()->of(Hotel::latest()->get())
+                ->addColumn('action', function ($data) {
+                    $button = '<button type="button" name="edit" onClick="return editData(\'' .$data->id. '\',0)" class="edit btn btn-secondary btn-sm">View</button>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<button type="button" name="edit" onClick="return editData(\'' .$data->id. '\',1)" class="edit btn btn-primary btn-sm">Edit</button>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<button type="button" name="delete" onClick="return deleteData(\'' .$data->id. '\')" class="delete btn btn-danger btn-sm">Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        // $query = Hotel::select('region', 'contact_no', 'manager');
+        // return datatables($query)->make(true);
+        // return view('hotel');
     }
+
+
+    
+    public function getone($id)
+    {
+        $query = Hotel::where('id',$id)->first();
+        return response()->json($query);
+    }
+
 
 
     public function store(Request $request)
@@ -96,16 +122,48 @@ class HotelController extends Controller
     }
 
 
-    public function update($id)
+    public function update(Request $request)
     {
         // do validation
-        Customer::find($id)->update(request()->all());
-        return ['success' => true, 'message' => 'Updated Successfully'];
+
+        $rules = array(
+            'region'    =>  'required',
+            'city'     =>  'required',
+            'street'     =>  'required',
+            'manager'     =>  'required',
+            'contact_no'     =>  'required',
+            'email'     =>  'required',
+
+
+        );
+
+        $error = Validator::make($request->all(), $rules);
+
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $form_data = array(
+            'region'        =>  $request->region,
+            'city'         =>  $request->city,
+            'street'         =>  $request->street,
+            'manager'         =>  $request->manager,
+            'contact_no'         =>  $request->contact_no,
+            'email'         =>  $request->email,
+
+        );
+
+        Hotel::whereId($request->hidden_id)->update($form_data);
+
+
+        return response()->json(['success' => 'Data Updated successfully.']);
     }
 
     public function destroy($id)
     {
-        Customer::find($id)->delete();
-        return ['success' => true, 'message' => 'Deleted Successfully'];
+        $data = Hotel::findOrFail($id);
+        $data->delete();
+        return response()->json(['success' => 'Data Deleted successfully.']);
+
     }
 }

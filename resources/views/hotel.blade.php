@@ -34,14 +34,14 @@
             <!-- form -->
             <div class="row" id="div_form">
                 <div class="col-xl-12">
-                    {{-- action="{{ route('hotel') }}" method="post" --}}
+                    {{-- action="{{ route('hotel.store') }}" method="post" --}}
                     <form class="card card-primary card-outline" id="form_id" name="form_id">
                         @csrf
                         <div class="card-header">
                             <h3 class="card-title">Add Hotel</h3>
                         </div>
                         <div class="card-body">
-                            <input type="hidden" id="uuid" name="uuid" />
+                            <input type="hidden" id="hidden_id" name="hidden_id" />
                             {{-- <input type="hidden" class="form-control" id="status" name="status" readonly /> --}}
 
                             <div class="row">
@@ -159,7 +159,7 @@
                                       justify-content-end">
 
                                     <div class="page-title-right">
-                                        <button type="button" class="btn btn-sm btn-success add" id="btn_add"
+                                        <button type="button" class="btn btn-sm btn-success submit" id="btn_add"
                                             onclick="return formReset('show')">
                                             <i class="fas fa-plus font-size-16 mr-1"></i> Add Hotel
                                         </button>
@@ -182,7 +182,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($hotels as $hotel)
+                                    {{-- @foreach ($hotels as $hotel)
                                         <tr>
                                             <td>{{ $hotel->region }}</td>
                                             <td>{{ $hotel->contact_no }}</td>
@@ -194,7 +194,7 @@
 
 
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -214,7 +214,7 @@
         $(function() {
             formReset("hide");
 
-            $("#data-table").dataTable();
+            // $("#data-table").dataTable();
 
             // function to save/update record
             $("#form_id")
@@ -282,69 +282,74 @@
                         $(element).addClass("is-valid");
                     },
                     submitHandler: function() {
+                        var form_data = new FormData(document.getElementById("form_id"));
                         if ($("#uuid").val() == "") {
-                            var form_data = new FormData(document.getElementById("form_id"));
                             // console.log(form_data);
                             // for (var value of form_data.values()) {
                             //   console.log(value);
                             // }
-                         
+
                             // add record
                             $.ajax({
-                            	url: "{{ route('hotel.store') }}",
-                            	type: "POST",
-                                data:form_data,
+                                url: "{{ route('hotel.store') }}",
+                                type: "POST",
+                                data: form_data,
                                 contentType: false,
-                                cache:false,
+                                cache: false,
                                 processData: false,
-                                dataType:"json",
-                            	success: function (data) {
+                                dataType: "json",
+                                success: function(data) {
                                     console.log(data)
-                            		// if (data) {
+                                    // if (data) {
 
-                            		// 	// notification("success", "Success!", data.message);
-                            		// } else {
-                            		// 	// notification("error", "Error!", data.message);
-                            		// }
+                                    // 	// notification("success", "Success!", data.message);
+                                    // } else {
+                                    // 	// notification("error", "Error!", data.message);
+                                    // }
 
-                            		formReset("hide");
-                            		// loadTable();
-                            	},
-                            	error: function ({ responseJSON }) {
-                            		notification("error", "Error!", "Error in Creating Department");
-                            		// console.log(responseJSON);
-                            		// console.log(responseJSON.responseText)
-                            	},
+                                    formReset("hide");
+                                    // loadTable();
+                                },
+                                error: function({
+                                    responseJSON
+                                }) {
+                                    notification("error", "Error!",
+                                        "Error in Creating Department");
+                                    // console.log(responseJSON);
+                                    // console.log(responseJSON.responseText)
+                                },
                             });
                         } else {
                             // update record
+                            let url = '{{ route('hotel.update', ':id') }}';
+                            url = url.replace(':id', $("#hidden_id").val());
+                            form_data.append("_token", "{{ csrf_token() }}");
                             $.ajax({
-                            	url:
-                            		baseURL +
-                            		"DepartmentController/update_department/" +
-                            		$("#uuid").val(),
-                            	type: "POST",
-                            	data: {
-                            		department_name: $("#department_name").val(),
-                            		department_contact_no: $("#department_contact_no").val(),
-                            		department_head: $("#department_head").val(),
-                            	},
-                            	cache: false,
-                            	success: function (data) {
-                            		console.log(data)
-                            		if (data) {
-                            			notification("success", "Success!", data.message);
-                            		} else {
-                            			notification("error", "Error!", data.message);
-                            		}
+                                url: url,
+                                type: "POST",
+                                data: form_data,
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                dataType: "json",
+                                success: function(data) {
+                                    console.log(data)
+                                    // if (data) {
 
-                            		formReset("hide");
+                                    // 	// notification("success", "Success!", data.message);
+                                    // } else {
+                                    // 	// notification("error", "Error!", data.message);
+                                    // }
 
-                            		loadTable();
-                            	},
-                            	error: function ({ responseJSON }) {
-                            		notification("error", "Error!", "Error in Updating Department");
-                            	},
+                                    formReset("hide");
+                                    // loadTable();
+                                },
+                                error: function({
+                                    responseJSON
+                                }) {
+                                    notification("error", "Error!",
+                                        "Error in Updating Department");
+                                },
                             });
                         }
                     },
@@ -352,15 +357,116 @@
 
 
         })
+
+
+        $('#data-table').dataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('hotel.datatable') }}",
+            },
+            columns: [
+
+                {
+                    data: 'region',
+                    name: 'region'
+                },
+                {
+                    data: 'contact_no',
+                    name: 'contact_no'
+                },
+                {
+                    data: 'manager',
+                    name: 'manager'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false
+                }
+            ]
+        });
+
+
+
+        // function to show details for viewing/updating
+        editData = (id, type) => {
+            let url = '{{ route('hotel.getone', ':id') }}';
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+
+                    formReset("show");
+                    $("#hidden_id").val(data["id"]);
+                    $("#contact_no").val(data["contact_no"]);
+                    $("#manager").val(data["manager"]);
+                    $("#email").val(data["email"]);
+                    $("#email").val(data["email"]);
+                    $("#region").val(data["region"]);
+                    $("#city").val(data["city"]);
+                    $("#street").val(data["street"]);
+
+
+                    // if data is for viewing only
+                    if (type == 0) {
+                        $("#form_id input, select, textarea").prop("disabled", true);
+                        $("#form_id button").prop("disabled", false);
+                        $(".submit").hide();
+                    }
+
+                },
+                error: function(data) {
+                    console.log(data)
+
+                },
+            });
+        };
+
+
+
+
+
+        // function to delete data
+        deleteData = (id) => {
+            Swal.fire({
+                title: "Are you sure you want to delete this record?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#34c38f",
+                cancelButtonColor: "#f46a6a",
+                confirmButtonText: "Yes, delete it!",
+            }).then(function(t) {
+                // if user clickes yes, delete it.
+                if (t.value) {
+                    let url = '{{ route('hotel.delete', ':id') }}';
+                    url = url.replace(':id', id);
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data:{
+                            _token     : '{{csrf_token()}}' 
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data)
+                            // if (data.success) {
+                            //     notification("success", "Success!", data.message);
+                            //     loadTable();
+                            // } else {
+                            //     notification("error", "Error!", data.message);
+                            // }
+                        },
+                        error: function({
+                            responseJSON
+                        }) {},
+                    });
+                }
+            });
+        };
     </script>
 @endsection
-{{-- // $('#data-table').DataTable({
-    //     "processing": true,
-    //     "serverSide": true,
-    // //    "ajax": "{{ route('api.hotels.index') }}",
-    //     "columns": [
-    //         { "data": "region" },
-    //         { "data": "contact_no" },
-    //         { "data": "manager" }
-    //     ]
-    // }); --}}
