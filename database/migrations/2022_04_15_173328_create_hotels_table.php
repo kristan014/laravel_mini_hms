@@ -18,10 +18,11 @@ class CreateHotelsTable extends Migration
             $table->string('region');
             $table->string('city');
             $table->string('street');
-            $table->integer('contact_no');
+            $table->string('contact_no');
             $table->string('email');
             $table->string('manager');
             $table->string('status')->default('Active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

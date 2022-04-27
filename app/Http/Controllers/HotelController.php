@@ -161,7 +161,7 @@ class HotelController extends Controller
 
     public function destroy($id)
     {
-        $data = Hotel::findOrFail($id);
+        $data = Hotel::find($id);
         $data->delete();
         return response()->json(['success' => 'Data Deleted successfully.']);
 

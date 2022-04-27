@@ -213,7 +213,7 @@
     <script>
         $(function() {
             formReset("hide");
-
+            loadTable();
             // $("#data-table").dataTable();
 
             // function to save/update record
@@ -283,7 +283,7 @@
                     },
                     submitHandler: function() {
                         var form_data = new FormData(document.getElementById("form_id"));
-                        if ($("#uuid").val() == "") {
+                        if ($("#hidden_id").val() == "") {
                             // console.log(form_data);
                             // for (var value of form_data.values()) {
                             //   console.log(value);
@@ -300,6 +300,7 @@
                                 dataType: "json",
                                 success: function(data) {
                                     console.log(data)
+                                    loadTable();
                                     // if (data) {
 
                                     // 	// notification("success", "Success!", data.message);
@@ -314,7 +315,7 @@
                                     responseJSON
                                 }) {
                                     notification("error", "Error!",
-                                        "Error in Creating Department");
+                                        "Error in Creating Hotel");
                                     // console.log(responseJSON);
                                     // console.log(responseJSON.responseText)
                                 },
@@ -334,6 +335,8 @@
                                 dataType: "json",
                                 success: function(data) {
                                     console.log(data)
+                                    loadTable();
+
                                     // if (data) {
 
                                     // 	// notification("success", "Success!", data.message);
@@ -348,7 +351,7 @@
                                     responseJSON
                                 }) {
                                     notification("error", "Error!",
-                                        "Error in Updating Department");
+                                        "Error in Updating Hotel");
                                 },
                             });
                         }
@@ -358,36 +361,40 @@
 
         })
 
+        loadTable = () => {
 
-        $('#data-table').dataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('hotels.datatable') }}",
-            },
-            columns: [
-
-                {
-                    data: 'region',
-                    name: 'region'
+            $("#data-table").dataTable().fnClearTable();
+            $("#data-table").dataTable().fnDraw();
+            $("#data-table").dataTable().fnDestroy();
+            $('#data-table').dataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('hotels.datatable') }}",
                 },
-                {
-                    data: 'contact_no',
-                    name: 'contact_no'
-                },
-                {
-                    data: 'manager',
-                    name: 'manager'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false
-                }
-            ]
-        });
+                columns: [
 
+                    {
+                        data: 'region',
+                        name: 'region'
+                    },
+                    {
+                        data: 'contact_no',
+                        name: 'contact_no'
+                    },
+                    {
+                        data: 'manager',
+                        name: 'manager'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
 
+        }
 
         // function to show details for viewing/updating
         editData = (id, type) => {
@@ -448,8 +455,8 @@
                     $.ajax({
                         url: url,
                         type: "POST",
-                        data:{
-                            _token     : '{{csrf_token()}}' 
+                        data: {
+                            _token: '{{ csrf_token() }}'
                         },
                         dataType: "json",
                         success: function(data) {

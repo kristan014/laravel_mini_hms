@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateContactNoToHotelsTable extends Migration
+class UpdateHotelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class UpdateContactNoToHotelsTable extends Migration
      */
     public function up()
     {
+        //
         Schema::table('hotels', function (Blueprint $table) {
-            //
-            $table->string('contact_no')->change();
-            
+            $table->unique('contact_no');
+            $table->unique('email');
+    
         });
     }
 
@@ -27,9 +28,6 @@ class UpdateContactNoToHotelsTable extends Migration
      */
     public function down()
     {
-        Schema::table('hotels', function (Blueprint $table) {
-            //
-            Schema::dropIfExists('hotels'); 
-        });
+        //
     }
 }

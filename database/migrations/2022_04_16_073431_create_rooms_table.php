@@ -21,6 +21,7 @@ class CreateRoomsTable extends Migration
             $table->foreignId('room_type_id')->constrained();
             $table->foreignId('hotel_id')->constrained();
             $table->string('status')->default('Active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

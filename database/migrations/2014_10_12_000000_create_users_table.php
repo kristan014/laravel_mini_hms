@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('gender',10);
             $table->string('status')->default('Active');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
   

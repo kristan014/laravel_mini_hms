@@ -20,6 +20,7 @@ class CreateRoomTypesTable extends Migration
             $table->integer('max_guest');
             $table->float('rate');
             $table->string('status')->default('Active');
+            $table->softDeletes();
             $table->timestamps();
 
         });

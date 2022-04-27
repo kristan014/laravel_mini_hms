@@ -174,7 +174,7 @@
 
                         <li class="nav-item">
                             <a href="{{ route('hotels.index') }}"
-                                class="nav-link {{ request()->segment(1) == 'hotel' ? 'active' : '' }}">
+                                class="nav-link {{ request()->segment(1) == 'hotels' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-hotel"></i>
                                 <p>
                                     Hotel
@@ -184,9 +184,9 @@
                         </li>
 
                         <li
-                            class="nav-item {{ request()->segment(1) == 'room_type' || request()->segment(1) == 'room' ? ' menu-open' : '' }}">
+                            class="nav-item {{ request()->segment(1) == 'room_types' || request()->segment(1) == 'rooms' ? ' menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ request()->segment(1) == 'room_type' || request()->segment(1) == 'room' ? 'active' : '' }}">
+                                class="nav-link {{ request()->segment(1) == 'room_types' || request()->segment(1) == 'rooms' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-door-closed"></i>
                                 <p>
                                     Room Management
@@ -195,15 +195,15 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('room_type') }}"
-                                        class="nav-link {{ request()->segment(1) == 'room_type' ? 'active' : '' }}">
+                                    <a href="{{ route('room_types') }}"
+                                        class="nav-link {{ request()->segment(1) == 'room_types' ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Room Type</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('room') }}"
-                                        class="nav-link {{ request()->segment(1) == 'room' ? 'active' : '' }}">
+                                    <a href="{{ route('rooms') }}"
+                                        class="nav-link {{ request()->segment(1) == 'rooms' ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Room</p>
                                     </a>

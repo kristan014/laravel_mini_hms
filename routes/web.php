@@ -44,9 +44,9 @@ Route::post('/delete-hotels/{id}',[HotelController::class, 'destroy'])->name('ho
 
 
 
-Route::get('/room',[RoomController::class, 'index'])->name('room');
+Route::get('/rooms',[RoomController::class, 'index'])->name('rooms');
 
 
-Route::get('/room_type',[RoomTypeController::class, 'index'])->name('room_type');
+Route::get('/room_types',[RoomTypeController::class, 'index'])->name('room_types');
 
 

@@ -19,6 +19,7 @@ class CreateGuestsTable extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('status')->default('Active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
