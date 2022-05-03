@@ -325,6 +325,9 @@
                             let url = '{{ route('hotels.update', ':id') }}';
                             url = url.replace(':id', $("#hidden_id").val());
                             form_data.append("_token", "{{ csrf_token() }}");
+                            form_data.append("_method", "PUT");
+
+
                             $.ajax({
                                 url: url,
                                 type: "POST",
@@ -454,7 +457,7 @@
                     url = url.replace(':id', id);
                     $.ajax({
                         url: url,
-                        type: "POST",
+                        type: "DELETE",
                         data: {
                             _token: '{{ csrf_token() }}'
                         },
