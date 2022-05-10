@@ -195,17 +195,17 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('room_types') }}"
+                                    <a href="{{ route('room_types.index') }}"
                                         class="nav-link {{ request()->segment(1) == 'room_types' ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Room Type</p>
+                                        <p>Room Types</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('rooms') }}"
+                                    <a href="{{ route('rooms.index') }}"
                                         class="nav-link {{ request()->segment(1) == 'rooms' ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Room</p>
+                                        <p>Rooms</p>
                                     </a>
                                 </li>
 
@@ -232,7 +232,7 @@
         <!-- /.content-wrapper -->
 
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">{{ config('app.name') }}</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.1.0

@@ -62,7 +62,7 @@
     }
   }
 
-  .nav.flex-column:not(.nav-sidebar) {
+  .nav.flex-column {
     > li {
       border-bottom: 1px solid $card-border-color;
       margin: 0;
@@ -479,7 +479,7 @@ html.maximized-card {
   }
 }
 
-@include dark-mode () {
+.dark-mode {
 
   // Color variants
   @each $name, $color in $theme-colors-alt {

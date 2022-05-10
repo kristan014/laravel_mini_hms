@@ -45,12 +45,30 @@ Route::prefix('hotels')->group(function () {
 
 
 
+Route::prefix('room_types')->group(function () {
+
+    Route::get('/',[RoomTypeController::class, 'index'])->name('room_types.index');
+    Route::get('/datatable',[RoomTypeController::class, 'datatable'])->name('room_types.datatable');
+    Route::get('/get-one/{id}',[RoomTypeController::class, 'getone'])->name('room_types.getone');
+    Route::post('/create',[RoomTypeController::class, 'store'])->name('room_types.store');
+    Route::put('/update/{id}',[RoomTypeController::class, 'update'])->name('room_types.update');
+    Route::delete('/delete/{id}',[RoomTypeController::class, 'destroy'])->name('room_types.delete');
+});
 
 
 
-Route::get('/rooms',[RoomController::class, 'index'])->name('rooms');
+Route::prefix('rooms')->group(function () {
+
+    Route::get('/',[RoomController::class, 'index'])->name('rooms.index');
+    Route::get('/datatable',[RoomController::class, 'datatable'])->name('rooms.datatable');
+    Route::get('/get-one/{id}',[RoomController::class, 'getone'])->name('rooms.getone');
+    Route::post('/create',[RoomController::class, 'store'])->name('rooms.store');
+    Route::put('/update/{id}',[RoomController::class, 'update'])->name('rooms.update');
+    Route::delete('/delete/{id}',[RoomController::class, 'destroy'])->name('rooms.delete');
+});
 
 
-Route::get('/room_types',[RoomTypeController::class, 'index'])->name('room_types');
+
+
 
 

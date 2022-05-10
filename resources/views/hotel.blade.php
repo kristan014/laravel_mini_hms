@@ -159,7 +159,7 @@
                                       justify-content-end">
 
                                     <div class="page-title-right">
-                                        <button type="button" class="btn btn-sm btn-success submit" id="btn_add"
+                                        <button type="button" class="btn btn-sm btn-primary submit" id="btn_add"
                                             onclick="return formReset('show')">
                                             <i class="fas fa-plus font-size-16 mr-1"></i> Add Hotel
                                         </button>

@@ -45,13 +45,13 @@
       display: none;
     }
 
-    .sidebar .nav-sidebar .nav-link p {
+    .nav-sidebar .nav-link p {
       width: 0;
       white-space: nowrap;
     }
 
     .sidebar .user-panel > .info,
-    .sidebar .nav-sidebar .nav-link p,
+    .nav-sidebar .nav-link p,
     .brand-text {
       margin-left: -10px;
       animation-name: fadeOut;
@@ -109,7 +109,7 @@
         }
 
         .user-panel > .info,
-        .sidebar .nav-sidebar .nav-link p,
+        .nav-sidebar .nav-link p,
         .brand-text,
         .logo-xl {
           display: inline-block;
