@@ -10,11 +10,13 @@ use Validator;
 class RoomController extends Controller
 {
     //
-    public function __construct(){
-        $this->middleware(['auth','prevent-back-history']);
+    public function __construct()
+    {
+        $this->middleware(['auth', 'prevent-back-history']);
     }
 
-    public function index(){
+    public function index()
+    {
         return view('room');
     }
 
@@ -26,24 +28,23 @@ class RoomController extends Controller
             // $query = Room::with('room_types');
             return datatables()->of(Room::with('room_types'))
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="edit" onClick="return editData(\'' .$data->id. '\',0)" class="edit btn btn-secondary btn-sm">View</button>';
+                    $button = '<button type="button" name="edit" onClick="return editData(\'' . $data->id . '\',0)" class="edit btn btn-secondary btn-sm">View</button>';
                     $button .= '&nbsp;&nbsp;';
-                    $button .= '<button type="button" name="edit" onClick="return editData(\'' .$data->id. '\',1)" class="edit btn btn-primary btn-sm">Edit</button>';
+                    $button .= '<button type="button" name="edit" onClick="return editData(\'' . $data->id . '\',1)" class="edit btn btn-primary btn-sm">Edit</button>';
                     $button .= '&nbsp;&nbsp;';
-                    $button .= '<button type="button" name="delete" onClick="return deleteData(\'' .$data->id. '\')" class="delete btn btn-danger btn-sm">Delete</button>';
+                    $button .= '<button type="button" name="delete" onClick="return deleteData(\'' . $data->id . '\')" class="delete btn btn-danger btn-sm">Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
     }
 
 
-    
+
     public function getone($id)
     {
-        $query = Room::where('id',$id)->first();
+        $query = Room::where('id', $id)->first();
         return response()->json($query);
     }
 
@@ -51,7 +52,7 @@ class RoomController extends Controller
 
     public function store(Request $request)
     {
-    
+
         // form ajax method
         $rules = array(
             'room_no'    =>  'required',
@@ -118,6 +119,28 @@ class RoomController extends Controller
         $data = Room::find($id);
         $data->delete();
         return response()->json(['success' => 'Data Deleted successfully.']);
+    }
 
+    public function image($filename)
+    {
+        //check image exist or not
+        $exists = true;
+
+        if ($exists) {
+
+            //get content of image
+            $content = Room::get('public/uploads/' . $filename);
+
+            //get mime type of image
+            $mime = Room::mimeType('public/uploads/' . $filename);
+            //prepare response with image content and response code
+            $response = Response::make($content, 200);
+            //set header 
+            $response->header("Content-Type", $mime);
+            // return response
+            return $response;
+        } else {
+            abort(404);
+        }
     }
 }

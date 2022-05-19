@@ -147,7 +147,10 @@ Rooms
                       </div>
                   </div>
                   <!-- /.card-header -->
+                  {{-- <img src="{{ route('rooms.image','eVsNKOn04FzfNRapO0jYlNcPy6hTwAkXDR9kXmqg.jpg') }}" alt="" title=""> --}}
 
+                  {{-- <img src="../public/uploads/eVsNKOn04FzfNRapO0jYlNcPy6hTwAkXDR9kXmqg.jpg" alt=""> --}}
+                  {{-- <img src="{{ route('rooms.image', 'eVsNKOn04FzfNRapO0jYlNcPy6hTwAkXDR9kXmqg.jpg') }}" alt='job image' title='job image'> --}}
                   <!-- Card Body -->
                   <div class="card-body">
                       <table id="data-table" class="table table-hover table-bordered w-100">
@@ -334,8 +337,11 @@ Rooms
             columns: [
 
                 {
-                    data: 'image',
-                    name: 'image'
+                    data: "image",
+                    name: null,
+                    // render: function (aData, type, row) {
+                    //     // return "<img src="{{ asset('storage/uploads/eVsNKOn04FzfNRapO0jYlNcPy6hTwAkXDR9kXmqg.jpg') }}" alt='job image' title='job image'>";
+                    // }
                 },
                 {
                     data: 'room_no',

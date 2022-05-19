@@ -65,6 +65,8 @@ Route::prefix('rooms')->group(function () {
     Route::post('/create',[RoomController::class, 'store'])->name('rooms.store');
     Route::put('/update/{id}',[RoomController::class, 'update'])->name('rooms.update');
     Route::delete('/delete/{id}',[RoomController::class, 'destroy'])->name('rooms.delete');
+    Route::get('/image/{filename}',[RoomController::class, 'image'])->name('rooms.image');
+
 });
 
 
