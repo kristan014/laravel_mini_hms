@@ -11,27 +11,14 @@ class HotelController extends Controller
 {
     //
 
-    public function __construct()
-    {
-        $this->middleware(['auth', 'prevent-back-history']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth', 'prevent-back-history']);
+    // }
 
 
     public function index()
     {
-        // if (request()->ajax()) {
-        //     return datatables()->of(Hotel::latest()->get())
-        //         ->addColumn('action', function ($data) {
-        //             $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-primary btn-sm">Edit</button>';
-        //             $button .= '&nbsp;&nbsp;';
-        //             $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm">Delete</button>';
-        //             return $button;
-        //         })
-        //         ->rawColumns(['action'])
-        //         ->make(true);
-        // }
-        // $hotels = Hotel::all();
-        // return view('hotel', compact('hotels'));
 
         return view('hotel');
     }
@@ -51,12 +38,15 @@ class HotelController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        // $query = Hotel::select('region', 'contact_no', 'manager');
-        // return datatables($query)->make(true);
-        // return view('hotel');
     }
 
 
+    public function getall()
+    {
+        $course = Hotel::all();
+        return $course;
+
+    }
     
     public function getone($id)
     {
@@ -118,7 +108,6 @@ class HotelController extends Controller
 
         return response()->json(['success' => 'Data Added successfully.']);
 
-        // return ['success' => true, 'message' => 'Inserted Successfully'];
     }
 
 

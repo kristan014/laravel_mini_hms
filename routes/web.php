@@ -70,6 +70,12 @@ Route::prefix('rooms')->group(function () {
 });
 
 
+Route::get('login/google/redirect', [LoginController::class, 'redirectToProvider']);
+
+Route::get('login/google/callback', [LoginController::class, 'redirectToProvider']);
+
+
+
 
 
 

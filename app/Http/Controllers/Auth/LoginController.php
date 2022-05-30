@@ -30,4 +30,18 @@ class LoginController extends Controller
         // redirect
         return redirect()->route('dashboard');
     }
+
+    // sign in with google
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('google')->user();
+ 
+        // $user->token;
+    }
+ 
 }
