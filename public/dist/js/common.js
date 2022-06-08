@@ -1,3 +1,6 @@
+const apiURL = "http://127.0.0.1:8000/api/";
+const webURL = "http://127.0.0.1:8000/";
+
 // type = error, warning, success, info
 // title = string
 // message = string
@@ -6,16 +9,16 @@ const notification = (type, title, message) => {
 };
 
 // get token
-const token = localStorage.getItem("TOKEN");
+
 let button = document.querySelector(".submit");
 
 // append headers to ajax attributes
-$.ajaxSetup({
-	headers: {
-		Accept: "application/json",
-		Authorization: "Bearer " + token,
-	},
-});
+// $.ajaxSetup({
+// 	headers: {
+// 		Accept: "application/json",
+// 		Authorization: "Bearer " + token,
+// 	},
+// });
 
 // when ajax has started
 $(document).ajaxStart(function () {

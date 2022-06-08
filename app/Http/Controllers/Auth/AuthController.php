@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
-
+// WITH TOKEN
 
 class AuthController extends Controller
 {
@@ -25,7 +25,7 @@ class AuthController extends Controller
         // Check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
-                'message' => 'Bad creds'
+                'message' => 'Incorrect Credentials'
             ], 401);
         }
 
@@ -35,6 +35,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ];
+        
 
         return response($response, 201);
     }

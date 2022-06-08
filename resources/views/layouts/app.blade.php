@@ -173,8 +173,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('hotels.index') }}"
-                                class="nav-link {{ request()->segment(1) == 'hotels' ? 'active' : '' }}">
+                            <a href="{{ route('branches.index') }}"
+                                class="nav-link {{ request()->segment(1) == 'branches' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-hotel"></i>
                                 <p>
                                     Hotel

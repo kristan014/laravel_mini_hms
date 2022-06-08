@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Session;
 
 class LoginController extends Controller
 {
@@ -26,6 +29,18 @@ class LoginController extends Controller
         if(!auth()->attempt($request->only('email', 'password'))){
             return back()->with('status','Invalid login details');
         }
+
+        $user = User::where('email', $request['email'])->first();
+
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+        
+        \Session::put('tokenVariable', $response['token']);;
+        // return response($response, 201);
 
         // redirect
         return redirect()->route('dashboard');

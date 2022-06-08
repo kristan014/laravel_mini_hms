@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HotelController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\Auth\AuthController;
 
 
@@ -20,14 +20,17 @@ use App\Http\Controllers\Auth\AuthController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/branches', [BranchController::class, 'getall']);
 
 // protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/hotels', [HotelController::class, 'store']);
-    Route::put('/hotels/{id}', [HotelController::class, 'update']);
-    Route::get('/hotels/{id}', [HotelController::class, 'getone']);
-    Route::get('/hotels', [HotelController::class, 'getall']);
-    Route::delete('/students/{id}', [HotelController::class, 'destroy']);
+    Route::post('/branches', [BranchController::class, 'store']);
+    Route::put('/branches/{id}', [BranchController::class, 'update']);
+    Route::get('/branches/{id}', [BranchController::class, 'getone']);
+    Route::get('/branches', [BranchController::class, 'getall']);
+    Route::get('/branches-datatable',[BranchController::class, 'datatable']);
+
+    Route::delete('/branches/{id}', [BranchController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
@@ -52,4 +55,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // });
 
 
-// Route::get('/api/v1/hotels',[HotelController::class, 'datatable'])->name('api.hotels.index');
+// Route::get('/api/v1/hotels',[BranchController::class, 'datatable'])->name('api.hotels.index');

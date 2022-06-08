@@ -10,6 +10,7 @@ class LogoutController extends Controller
     //
     public function store(){
         // dd('logout');
+        session()->flush(); 
         auth()->logout();
 
         return redirect()->route('login');

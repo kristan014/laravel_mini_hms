@@ -27,6 +27,10 @@ Dashboard
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
+
+         <p>
+        {{\Session::get('tokenVariable');}}
+           </p>
           
           {{-- @if ($posts->count())
           @foreach ($posts as $post)
@@ -41,5 +45,9 @@ Dashboard
       </section>
       <!-- /.content -->
 
+<script>
+  var tokendd = "{{ Session::get('tokenVariable'); }}"
 
+  console.log(tokendd)
+</script>
 @endsection

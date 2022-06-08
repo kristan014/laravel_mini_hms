@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Hotels
+    Branches
 @endsection
 
 
@@ -9,9 +9,9 @@
 
 
 @section('content')
-    <x-pageHeader href="{{ route('hotels.index') }}" title="Hotels"/>
+    <x-pageHeader href="{{ route('branches.index') }}" title="Branches" />
     {{-- <x-page-header>
-        Hotels
+        Branches
     </x-page-header> --}}
 
 
@@ -22,7 +22,7 @@
             <!-- form -->
             <div class="row" id="div_form">
                 <div class="col-xl-12">
-                    {{-- action="{{ route('hotels.store') }}" method="post" --}}
+                    {{-- action="{{ route('branches.store') }}" method="post" --}}
                     <form class="card card-primary card-outline" id="form_id" name="form_id">
                         @csrf
                         <div class="card-header">
@@ -138,7 +138,7 @@
                                     class="col-6
                                   d-sm-flex
                                   align-items-center">
-                                    <h3 class="card-title">List of Hotels</h3>
+                                    <h3 class="card-title">List of Branches</h3>
                                 </div>
                                 <div
                                     class="col-6
@@ -170,7 +170,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($hotels as $hotel)
+                                    {{-- @foreach ($branches as $hotel)
                                         <tr>
                                             <td>{{ $hotel->region }}</td>
                                             <td>{{ $hotel->contact_no }}</td>
@@ -279,7 +279,8 @@
 
                             // add record
                             $.ajax({
-                                url: "{{ route('hotels.store') }}",
+                                // url: "{{ route('branches.store') }}",
+                                url: apiURL + "branches",
                                 type: "POST",
                                 data: form_data,
                                 contentType: false,
@@ -310,7 +311,7 @@
                             });
                         } else {
                             // update record
-                            let url = '{{ route('hotels.update', ':id') }}';
+                            // let url = '{{ route('branches.update', ':id') }}';
                             url = url.replace(':id', $("#hidden_id").val());
                             form_data.append("_token", "{{ csrf_token() }}");
                             form_data.append("_method", "PUT");
@@ -353,7 +354,13 @@
         })
 
         loadTable = () => {
-
+            $.ajaxSetup({
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+                    ContentType: "application/x-www-form-urlencoded",
+                },
+            });
             $("#data-table").dataTable().fnClearTable();
             $("#data-table").dataTable().fnDraw();
             $("#data-table").dataTable().fnDestroy();
@@ -361,7 +368,8 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('hotels.datatable') }}",
+                    // url: "{{ route('branches.datatable') }}",
+                    url: apiURL + "branches-datatable",
                 },
                 columns: [
 
@@ -389,10 +397,10 @@
 
         // function to show details for viewing/updating
         editData = (id, type) => {
-            let url = '{{ route('hotels.getone', ':id') }}';
+            // let url = '{{ route('branches.getone', ':id') }}';
             url = url.replace(':id', id);
             $.ajax({
-                url: url,
+                url: apiURL + "branches/" + id,
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
@@ -441,7 +449,7 @@
             }).then(function(t) {
                 // if user clickes yes, delete it.
                 if (t.value) {
-                    let url = '{{ route('hotels.delete', ':id') }}';
+                    // let url = '{{ route('branches.delete', ':id') }}';
                     url = url.replace(':id', id);
                     $.ajax({
                         url: url,

@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}" />
+
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+    <!-- Jquery Validation -->
+    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
 </head>
 
 <body class="hold-transition login-page">
@@ -33,7 +43,9 @@
                     </div>
                 @endif
 
-                <form action="{{ route('login') }}" method="post">
+                {{-- <form id="loginForm" name="loginForm"> --}}
+                <form action="{{ route('login') }}" method="post" id="loginForm">
+
                     @csrf
                     <div class="input-group">
                         <input type="email" name="email" id="email"
@@ -105,12 +117,97 @@
     </div>
     <!-- /.login-box -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+    <!-- Toastr -->
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+
+    {{-- LOGIN THROUUGH AJAX --}}
+    {{-- <script>
+        const apiURL = "http://127.0.0.1:8000/api/";
+        const webURL = "http://127.0.0.1:8000/";
+
+        const notification = (type, title, message) => {
+            return toastr[type](message, title);
+        };
+
+        toastr.options = {
+            positionClass: "toast-top-center",
+        };
+
+        $(function() {
+
+            $("#loginForm")
+                .on("submit", function(e) {
+                    e.preventDefault(); // prevent page refresh
+                })
+                .validate({
+                    rules: {
+                        // simple rule, converted to {required:true}
+                        email: {
+                            email: true,
+                            required: true,
+                        },
+                        // compound rule
+                        password: {
+                            required: true,
+                        },
+                    },
+                    messages: {
+                        email: {
+                            required: "please provide email",
+                            email: "please enter valid email",
+                        },
+
+                        password: {
+                            required: "please provide password",
+                        },
+                    },
+                    errorElement: "span",
+                    errorPlacement: function(error, element) {
+                        error.addClass("invalid-feedback");
+                        element.closest(".input-group").append(error);
+                    },
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass("is-invalid");
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        $(element).removeClass("is-invalid");
+                        $(element).addClass("is-valid");
+                    },
+                    submitHandler: function() {
+                        $.ajax({
+                            url: apiURL + "login",
+                            // contentType: "application/x-www-form-urlencoded",
+                            type: "POST", // post, put, delete, get
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                email: $("#email").val(),
+                                password: $("#password").val(),
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.token) {
+                                    localStorage.setItem("TOKEN", data.token);
+                                    localStorage.setItem("ID", data.user.id);
+                                    localStorage.setItem("FULLNAME", data.user.name);
+                                    window.location.replace(webURL + "dashboard");
+                                }
+                            },
+                            error: function({
+                                responseJSON
+                            }) {
+                                notification("error", "Error!", responseJSON.message);
+                            },
+                        });
+                    },
+                });
+        });
+    </script> --}}
 </body>
 
 </html>

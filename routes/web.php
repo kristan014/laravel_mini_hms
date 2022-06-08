@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HotelController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTypeController;
 
@@ -32,16 +32,16 @@ Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard'
 
 
 
-Route::prefix('hotels')->group(function () {
+Route::prefix('branches')->group(function () {
 
-    Route::get('/',[HotelController::class, 'index'])->name('hotels.index');
-    Route::get('/datatable',[HotelController::class, 'datatable'])->name('hotels.datatable');
-    Route::get('/get-one/{id}',[HotelController::class, 'getone'])->name('hotels.getone');
-    Route::post('/create',[HotelController::class, 'store'])->name('hotels.store');
-    Route::put('/update/{id}',[HotelController::class, 'update'])->name('hotels.update');
-    Route::delete('/delete/{id}',[HotelController::class, 'destroy'])->name('hotels.delete');
+    Route::get('/',[BranchController::class, 'index'])->name('branches.index');
+    Route::get('/datatable',[BranchController::class, 'datatable'])->name('branches.datatable');
+    Route::get('/get-one/{id}',[BranchController::class, 'getone'])->name('branches.getone');
+    Route::post('/create',[BranchController::class, 'store'])->name('branches.store');
+    Route::put('/update/{id}',[BranchController::class, 'update'])->name('branches.update');
+    Route::delete('/delete/{id}',[BranchController::class, 'destroy'])->name('branches.delete');
 });
-// Route::get('/api/v1/hotels',[HotelController::class, 'datatable'])->name('api.hotels.index');
+// Route::get('/api/v1/hotels',[BranchController::class, 'datatable'])->name('api.hotels.index');
 
 
 

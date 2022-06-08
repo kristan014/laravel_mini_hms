@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Session;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,6 +15,6 @@ class DashboardController extends Controller
         // dd(auth()->user());
     
         return view('dashboard');
-    
+        \Session::get('tokenVariable');
         }
 }

@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hotel;
+use App\Models\Branch;
 
 use Illuminate\Http\Request;
 use Validator;
 
-class HotelController extends Controller
+class BranchController extends Controller
 {
     //
 
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth', 'prevent-back-history']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth', 'prevent-back-history']);
+    }
 
 
     public function index()
     {
 
-        return view('hotel');
+        return view('Branch');
     }
 
     public function datatable()
     {
         if (request()->ajax()) {
-            return datatables()->of(Hotel::latest()->get())
+            return datatables()->of(Branch::latest()->get())
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="edit" onClick="return editData(\'' .$data->id. '\',0)" class="edit btn btn-secondary btn-sm">View</button>';
                     $button .= '&nbsp;&nbsp;';
@@ -43,14 +43,14 @@ class HotelController extends Controller
 
     public function getall()
     {
-        $course = Hotel::all();
+        $course = Branch::all();
         return $course;
 
     }
     
     public function getone($id)
     {
-        $query = Hotel::where('id',$id)->first();
+        $query = Branch::where('id',$id)->first();
         return response()->json($query);
     }
 
@@ -69,10 +69,10 @@ class HotelController extends Controller
         //     'email' => ['required', 'email'],
 
         // ])) {
-        //     Hotel::create($request->all());
-        //     return redirect()->back()->with('status','Hotel created successfully');
+        //     Branch::create($request->all());
+        //     return redirect()->back()->with('status','Branch created successfully');
         // }else{
-        //     return redirect()->back()->with('status', 'Error in creating hotel');
+        //     return redirect()->back()->with('status', 'Error in creating Branch');
 
         // }
 
@@ -104,7 +104,7 @@ class HotelController extends Controller
 
         );
 
-        Hotel::create($form_data);
+        Branch::create($form_data);
 
         return response()->json(['success' => 'Data Added successfully.']);
 
@@ -142,7 +142,7 @@ class HotelController extends Controller
 
         );
 
-        Hotel::whereId($request->hidden_id)->update($form_data);
+        Branch::whereId($request->hidden_id)->update($form_data);
 
 
         return response()->json(['success' => 'Data Updated successfully.']);
@@ -150,7 +150,7 @@ class HotelController extends Controller
 
     public function destroy($id)
     {
-        $data = Hotel::find($id);
+        $data = Branch::find($id);
         $data->delete();
         return response()->json(['success' => 'Data Deleted successfully.']);
 
