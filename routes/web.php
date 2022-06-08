@@ -7,8 +7,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTypeController;
-
-
+use App\Http\Controllers\SmsController;
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,12 @@ Route::get('login/google/callback', [LoginController::class, 'redirectToProvider
 
 
 
+// ROutes for mailing
 
+Route::get('/email',function(){
+    Mail::to('balinkian@gmail.com')->send(new Mailer());
+    return new Mailer();
+});
 
-
+// Routes for sms 
+Route::get('/sms', [SmsController::class, 'index']);
