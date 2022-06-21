@@ -6,7 +6,7 @@ Room Types
 
 @section('content')
 
-<x-page-header title="Room Types"/>
+<x-pageHeader href="{{ route('room_types.index') }}" title="Room Types"/>
 
 
   <!-- Main content -->
